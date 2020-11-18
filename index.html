@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre Webtech</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+    <style>
+        img{
+            width: 640px;
+        }
+    </style>
+<body>
+    <div class="container">
+        <div id='print' class="row"></div>
+    </div>
+    <script>
+        fetch('./ezquiz.json').then(element => element.json()).then(data => {
+            for (let i = 0; i < data.tracks.items.length; i++) {
+            let col = document.createElement('div')
+            let card = document.createElement('div')
+            let img = document.createElement('img')
+            let card_body = document.createElement('div')
+            let title = document.createElement('h5')
+            let artist = document.createElement('p')
+            let date = document.createElement('p')
+            let countries = document.createElement('p')
+            let print = document.getElementById("print")
+
+            col.setAttribute("class", "col-4 mx-auto")
+            card.setAttribute("class", "card")
+            img.setAttribute("class", "no-gutters card-img-top")
+            card_body.setAttribute("class", "card-body")
+            title.setAttribute("class", "title")
+            artist.setAttribute("class", "artist")
+            date.setAttribute("class", "date")
+            countries.setAttribute("class", "countries")
+
+            img.src = data.tracks.items[i].album.images[0].url
+            title.innerHTML = data.tracks.items[i].album.name
+            artist.innerHTML = "Artist: " + data.tracks.items[i].artists[0].name
+            date.innerHTML = "Release date: " + data.tracks.items[i].album.release_date
+            countries.innerHTML = "Avaliable: " + data.tracks.items[i].album.available_markets.length + " countries"
+
+            card_body.appendChild(title)
+            card_body.appendChild(artist)
+            card_body.appendChild(date)
+            card_body.appendChild(countries)
+
+            card.appendChild(img)
+            card.appendChild(card_body)
+
+            col.appendChild(card)
+
+            print.appendChild(col)               
+            }
+        });
+    </script>
+</body>
+
+</html>
